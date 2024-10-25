@@ -1,16 +1,24 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Counter = () => {
-  const [count, setCount] = useState(0);
+const Counter = ({ setCount }) => {
+  const [localCount, setLocalCount] = useState(0);
 
-  const decrement = () => setCount((prevCount) => prevCount - 1);
-  const increment = () => setCount((prevCount) => prevCount + 1);
+  const decrement = () => setLocalCount((prevCount) => prevCount - 1);
+  const increment = () => setLocalCount((prevCount) => prevCount + 1);
+
+  useEffect(() => {
+    setCount(localCount);
+  }, [localCount, setCount]);
 
   return (
     <div className="counter-container">
-      <p className="counter-value">{count}</p>
-      <button className="counter-button" onClick={decrement}>-</button>
-      <button className="counter-button" onClick={increment}>+</button>
+      <p className="counter-value">{localCount}</p>
+      <button className="counter-button" onClick={decrement}>
+        -
+      </button>
+      <button className="counter-button" onClick={increment}>
+        +
+      </button>
     </div>
   );
 };
